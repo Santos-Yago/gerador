@@ -32,7 +32,7 @@ Refazer:
 		goto Refazer;
 	}
 	
-	for(auto i: mega)
+	for(auto const& i: mega)
 		std::cout << i << ' ';
 	
 	
