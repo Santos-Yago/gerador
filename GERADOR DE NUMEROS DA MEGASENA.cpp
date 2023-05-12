@@ -40,7 +40,7 @@ int main()
 	std::sort(nMega.begin(), nMega.end());
 	
 	//Imprime na tela;
-	for(auto const& i: mega)
+	for(auto const& i: nMega)
 		std::cout << i << ' ';
 	
 	return 0;
