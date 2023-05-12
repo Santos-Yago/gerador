@@ -2,10 +2,10 @@
 #include <algorithm>
 #include <vector>
 #include <random>
-#include <iterator>
 
 int main()
 {
+	//Configura a geração de numeros aleatórios;
 	std::random_device rd{};
 	std::seed_seq ss{rd(), rd(), rd(), rd(), rd(), rd(), rd(), rd()};
 	std::mt19937 mt{ss};
@@ -13,28 +13,37 @@ int main()
 	
 	auto gerador{[&mt, &dist](){return dist(mt);}};
 	
-Refazer:
-	std::vector<int> mega(6);
+	//Cria uma matriz que armazena os 6 numeros;
+	std::array<int, 6> nMega;
 	
-	std::generate(begin(mega), end(mega), gerador);
-	
-	//Ordena.
-	std::sort(mega.begin(), mega.end());
-	
-	//Verifique se há numeros repetidos...
-	auto ver = std::unique(mega.begin(), mega.end());
-	//...e os trata.
-	mega.erase(ver, mega.end());
-	
-	//Se houver menos elementos que o pretendido, refaz.
-	if(mega.size() < std::size_t(6))
+	//Gera os 6 numeros aleatórios;
+	for(unsigned int i{0}; i < nMega.size(); ++i)
 	{
-		goto Refazer;
+		nMega[i] = gerador();
 	}
 	
+	//Verifica duplicidade dentro da matriz;
+	Refazer:
+	for(unsigned int i{0}; i < nMega.size()-1; ++i)
+	{	
+		for(unsigned int j{i+1}; j < nMega.size(); ++j)
+		{
+			//Atribui um novo número, caso repetido;
+			if(nMega[i] == nMega[j])
+				nMega[j] = gerador();
+			
+			//Verifica se não se repetiu novamente;
+			if(nMega[i] == nMega[j])
+				goto Refazer;
+		}
+	}
+	
+	//Organiza;
+	std::sort(nMega.begin(), nMega.end());
+	
+	//Imprime na tela;
 	for(auto const& i: mega)
 		std::cout << i << ' ';
-	
 	
 	return 0;
 }
