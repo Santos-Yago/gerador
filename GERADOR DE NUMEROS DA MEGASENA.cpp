@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <random>
+#include <iterator>
 
 int main()
 {
@@ -17,11 +18,8 @@ int main()
 	std::array<int, 6> nMega;
 	
 	//Gera os 6 numeros aleatórios;
-	for(unsigned int i{0}; i < nMega.size(); ++i)
-	{
-		nMega[i] = gerador();
-	}
-	
+	std::generate(nMega.begin(), nMega.end(), gerador);
+		
 	//Verifica duplicidade dentro da matriz;
 	Refazer:
 	for(unsigned int i{0}; i < nMega.size()-1; ++i)
